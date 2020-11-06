@@ -1,4 +1,4 @@
-WebAPI.csproj
-Startup.cs
-appsettings.json
-launchSettings.json
+**/WebAPI.csproj
+**/Startup.cs
+**/appsettings.json
+**/launchSettings.json
