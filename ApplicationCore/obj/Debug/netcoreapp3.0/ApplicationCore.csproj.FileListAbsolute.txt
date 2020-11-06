@@ -1,0 +1,17 @@
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.deps.json
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.dll
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.pdb
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csprojAssemblyReference.cache
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.dll
+C:\Users\ThinkPro\Desktop\TDN-Website\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.pdb
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.deps.json
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.dll
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.pdb
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.dll
+C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.pdb
