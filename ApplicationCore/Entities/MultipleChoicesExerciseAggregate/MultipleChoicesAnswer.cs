@@ -13,5 +13,6 @@ namespace ApplicationCore.Entities.MultipleChoicesExerciseAggregate
         public virtual Answer Answer { get; set; }
         public int AnswerId { get; set; }
         public string Result { get; set; }
+        public bool IsBingo { get; set; }
     }
 }

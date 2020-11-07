@@ -6267,24 +6267,31 @@
     ]
   },
   "packageFolders": {
-    "/root/.nuget/packages/": {}
+    "C:\\Users\\ThinkPro\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/var/www/html/tdnServer/ApplicationCore/ApplicationCore.csproj",
+      "projectUniqueName": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
       "projectName": "ApplicationCore",
-      "projectPath": "/var/www/html/tdnServer/ApplicationCore/ApplicationCore.csproj",
-      "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/var/www/html/tdnServer/ApplicationCore/obj/",
+      "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
+      "packagesPath": "C:\\Users\\ThinkPro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "/root/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\ThinkPro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6348,14 +6355,21 @@
           {
             "name": "Microsoft.NETCore.App.Ref",
             "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
           }
         ],
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

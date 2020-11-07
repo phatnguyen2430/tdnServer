@@ -174,7 +174,7 @@ namespace Infrastructure.Data
             }
             
 
-            var folder = new DirectoryInfo(buildResFolder.Parent?.Parent?.Parent?.FullName + @"/App_Data/StoredProcedure");
+            var folder = new DirectoryInfo(buildResFolder.Parent?.Parent?.Parent?.FullName + @"\App_Data\StoredProcedure");
             var storedProcedures = folder.GetFiles().ToList();
             foreach (var storedProcedure in storedProcedures)
             {
