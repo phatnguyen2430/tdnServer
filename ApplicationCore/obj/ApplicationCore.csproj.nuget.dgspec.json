@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {}
+    "/var/www/html/tdnServer/ApplicationCore/ApplicationCore.csproj": {}
   },
   "projects": {
-    "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
+    "/var/www/html/tdnServer/ApplicationCore/ApplicationCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
+        "projectUniqueName": "/var/www/html/tdnServer/ApplicationCore/ApplicationCore.csproj",
         "projectName": "ApplicationCore",
-        "projectPath": "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
-        "packagesPath": "C:\\Users\\ngtph\\.nuget\\packages\\",
-        "outputPath": "D:\\work\\tdnServer\\ApplicationCore\\obj\\",
+        "projectPath": "/var/www/html/tdnServer/ApplicationCore/ApplicationCore.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/var/www/html/tdnServer/ApplicationCore/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ngtph\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -85,21 +83,14 @@
             {
               "name": "Microsoft.NETCore.App.Ref",
               "version": "[3.0.0, 3.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[3.0.0, 3.0.0]"
             }
           ],
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
         }
       }
     }
