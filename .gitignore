@@ -3,3 +3,4 @@
 **/appsettings.json
 **/launchSettings.json
 **/*.dll
+**/*.cache
