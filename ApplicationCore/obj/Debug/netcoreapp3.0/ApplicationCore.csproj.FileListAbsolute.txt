@@ -18,6 +18,7 @@ C:\Users\ThinkPro\Desktop\TESTDB\ApplicationCore\obj\Debug\netcoreapp3.0\Applica
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.deps.json
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.dll
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.pdb
+C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csprojAssemblyReference.cache
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfoInputs.cache
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfo.cs
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csproj.CoreCompileInputs.cache
