@@ -13,7 +13,5 @@ namespace ApplicationCore.Entities.EssayExerciseAggregate
         public virtual Answer Answer { get; set; }
         public int AnswerId { get; set; }
         public string Result { get; set; }
-        public string ResultFixed { get; set; }
-        public bool IsBingo { get; set; }
     }
 }

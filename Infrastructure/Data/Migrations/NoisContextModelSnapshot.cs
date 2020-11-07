@@ -98,13 +98,7 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("EssayExerciseId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsBingo")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Result")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ResultFixed")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedOnUtc")
@@ -417,9 +411,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsBingo")
-                        .HasColumnType("bit");
 
                     b.Property<int>("MultipleChoicesExerciseId")
                         .HasColumnType("int");
