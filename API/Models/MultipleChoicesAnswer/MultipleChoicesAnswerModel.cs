@@ -11,6 +11,5 @@ namespace WebAPI.Models.MultipleChoicesAnswer
         public int MultipleChoicesExerciseId { get; set; }
         public int AnswerId { get; set; }
         public string Result { get; set; }
-        public bool IsBingo { get; set; }
     }
 }

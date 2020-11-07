@@ -6267,25 +6267,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ThinkPro\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\ngtph\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ThinkPro\\Source\\Repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
+      "projectUniqueName": "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
       "projectName": "ApplicationCore",
-      "projectPath": "C:\\Users\\ThinkPro\\Source\\Repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
-      "packagesPath": "C:\\Users\\ThinkPro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ThinkPro\\Source\\Repos\\tdnServer\\ApplicationCore\\obj\\",
+      "projectPath": "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
+      "packagesPath": "C:\\Users\\ngtph\\.nuget\\packages\\",
+      "outputPath": "D:\\work\\tdnServer\\ApplicationCore\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ThinkPro\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\ngtph\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
@@ -6369,7 +6364,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

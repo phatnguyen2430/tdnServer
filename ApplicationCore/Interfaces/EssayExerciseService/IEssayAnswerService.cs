@@ -19,6 +19,5 @@ namespace ApplicationCore.Interfaces.EssayExerciseService
         Task<EssayAnswer> GetByIdAsync(int id);
         Task<EssayAnswer> AddAsync(EssayAnswer entity);
         Task<bool> CheckExistingBasedOnAnswerIdAndExerciseId(int answerId, int essayExerciseId);
-        Task<EssayAnswer> UpdateAsync(EssayAnswer entity);
     }
 }
