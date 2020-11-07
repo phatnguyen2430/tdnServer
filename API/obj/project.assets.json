@@ -3815,7 +3815,10 @@
         },
         "runtime": {
           "bin/placeholder/ApplicationCore.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Infrastructure/1.0.0": {
         "type": "project",
@@ -3841,7 +3844,10 @@
         },
         "runtime": {
           "bin/placeholder/Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -11467,20 +11473,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ngtph\\.nuget\\packages\\": {}
+    "C:\\Users\\ThinkPro\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\work\\tdnServer\\API\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\API\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "D:\\work\\tdnServer\\API\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\ngtph\\.nuget\\packages\\",
-      "outputPath": "D:\\work\\tdnServer\\API\\obj\\",
+      "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\API\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\ThinkPro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ngtph\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\ThinkPro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
@@ -11492,11 +11503,11 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "D:\\work\\tdnServer\\ApplicationCore\\ApplicationCore.csproj"
+            "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj"
             },
-            "D:\\work\\tdnServer\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "D:\\work\\tdnServer\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -11635,7 +11646,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

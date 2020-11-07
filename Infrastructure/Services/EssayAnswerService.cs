@@ -87,10 +87,12 @@ namespace Infrastructure.Services
             await _unitOfWork.SaveChangesAsync();
             return entity;
         }
-        //public Task<bool> UpdateLastTimeStatusAsync(EssayAnswer essayExercise)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<EssayAnswer> UpdateAsync(EssayAnswer entity)
+        {
+            await _unitOfWork.EssayAnswerRepository.UpdateAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
+            return entity;
+        }
 
         //public LogicResult<EssayAnswer> Validate(EssayAnswer essayExercise)
         //{

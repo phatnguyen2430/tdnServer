@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.Entities.EssayExerciseAggregate;
+using ApplicationCore.Entities.MultipleChoicesExerciseAggregate;
 using ApplicationCore.Entities.TestAggregate;
 using ApplicationCore.Interfaces;
 using AutoMapper;
@@ -97,6 +99,71 @@ namespace WebAPI.Controllers
             }
             return SuccessResult(newTest, "Created Test successfully.");
         }
+
+
+
+
+        //Add Test Model -> contains 28 multiple choices & 8 essay
+        [AllowAnonymous]
+        [HttpPost("create-contains")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateTestContainsExercises([FromBody] TestContainerModel model)
+        {
+            var newTest = new Test();
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    ValidModel();
+                }
+
+                //Add Test
+                newTest = new Test()
+                {
+                    Type = (ApplicationCore.Entities.TestAggregate.TestType)model.Type,
+                    Name = model.Name
+                };
+                await _service.TestService.AddAsync(newTest);
+
+                //add multiple exercise
+                foreach (var multipleExercise in model.MultipleChoicesExerciseModels)
+                {
+                    var newMultipleExercise = new MultipleChoicesExercise()
+                    {
+                        TestId = newTest.Id,
+                        RightResult = multipleExercise.RightResult,
+                        FalseResult1 = multipleExercise.FalseResult1,
+                        FalseResult2 = multipleExercise.FalseResult2,
+                        FalseResult3 = multipleExercise.FalseResult3,
+                        Title = multipleExercise.Title
+                    };
+                    await _service.MultipleChoicesExerciseService.AddAsync(newMultipleExercise);
+                }
+
+                //add essay exercise
+                foreach (var essayExercise in model.EssayExerciseModels)
+                {
+                    var newEssayExerecise = new EssayExercise()
+                    {
+                        TestId = newTest.Id,
+                        Title = essayExercise.Title,
+                        Result = essayExercise.Result
+                    };
+                    await _service.EssayExerciseService.AddAsync(newEssayExerecise);
+                }
+            }
+            catch (Exception e)
+            {
+                return ErrorResult(e.Message);
+            }
+            return SuccessResult(newTest, "Created Test successfully.");
+        }
+
+
+
 
         #endregion
     }
