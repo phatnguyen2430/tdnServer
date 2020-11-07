@@ -11,5 +11,6 @@ namespace WebAPI.Models.EssayAnswer
         public int EssayExerciseId { get; set; }
         public int AnswerId { get; set; }
         public string Result { get; set; }
+        public bool IsBingo { get; set; }
     }
 }
