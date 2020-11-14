@@ -10,5 +10,6 @@ namespace ApplicationCore.Interfaces.Repositories
     {
         Task<EssayAnswer> EagerGetByIdAsync(int id);
         Task<bool> CheckAnswerIsExisting(int answerId, int essayExcerciseId);
+        Task<List<EssayAnswer>> GetByAnswerIdAsync(int answerId);
     }
 }

@@ -9,6 +9,8 @@ namespace ApplicationCore.Interfaces.Repositories
     public interface IAnswerRepository : IRepositoryAsync<Answer>
     {
         Task<Answer> EagerGetByIdAsync(int id);
-        Task<bool> CheckIfStudentDidTest(int studentId, int testId);
+        Task<bool> CheckIfStudentDidTest(int userId, int testId);
+        Task<List<Answer>> GetAnswersByUserId(int userId);
+        Task<List<Answer>> GetAllPagingByUserId(int pageSize, int pageIndex, int userId);
     }
 }

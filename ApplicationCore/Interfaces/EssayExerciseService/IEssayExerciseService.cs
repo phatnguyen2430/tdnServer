@@ -18,5 +18,6 @@ namespace ApplicationCore.Interfaces.EssayExerciseService
         Task<List<EssayExercise>> GetByIdsAsync(List<int> ids);
         Task<EssayExercise> GetByIdAsync(int id);
         Task<EssayExercise> AddAsync(EssayExercise entity);
+        Task<List<EssayExercise>> GetByTestIdAsync(int testId);
     }
 }

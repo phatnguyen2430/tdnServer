@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateEssayExercise([FromBody] EssayExerciseModel model)
+        public async Task<IActionResult> CreateEssayExercise([FromBody] EssayExerciseRequestModel model)
         {
             var newEssayExercise = new EssayExercise();
             try
@@ -89,9 +89,13 @@ namespace WebAPI.Controllers
             {
                 return ErrorResult($"Can not found Essay Exercise with Id: {id}");
             }
-            var essayExerciseRes = new EssayExerciseModel()
+            var essayExerciseRes = new EssayExerciseResponseModel()
             {
-                
+                Id = essayExercise.Id,
+                Image = essayExercise.Image,
+                Result = essayExercise.Result,
+                TestId = essayExercise.TestId,
+                Title = essayExercise.Title
             };
             return SuccessResult(essayExerciseRes, "Get Essay Exercise successfully.");
         }

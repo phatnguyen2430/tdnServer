@@ -13,41 +13,38 @@ namespace Infrastructure.Data
         private IDbContextTransaction _transaction;
         public UnitOfWork(NoisContext context,
             IRefreshTokenRepository refreshTokenRepository,
-            IAnnotationRepository annotationRepository,
             IAnswerRepository answerRepository,
             IEssayAnswerRepository essayAnswerRepository,
             IEssayExerciseRepository essayExerciseRepository,
             ILogRepository logRepository,
             IMultipleChoicesAnswerRepository multipleChoicesAnswerRepository,
             IMultipleChoicesExerciseRepository multipleChoicesExerciseRepository,
-            IStudentRepository studentRepository,
-            ITestRepository testRepository
+            ITestRepository testRepository,
+            INotificationRepository notificationRepository
             )
         {
             Context = context;
             RefreshTokenRepository = refreshTokenRepository;
-            AnnotationRepository = annotationRepository;
             AnswerRepository = answerRepository;
             EssayExerciseRepository = essayExerciseRepository;
             LogRepository = logRepository;
             MultipleChoicesExerciseRepository = multipleChoicesExerciseRepository;
-            StudentRepository = studentRepository;
             TestRepository = testRepository;
             EssayAnswerRepository = essayAnswerRepository;
             MultipleChoicesAnswerRepository = multipleChoicesAnswerRepository;
+            NotificationRepository = notificationRepository;
         }
         public DbContext Context { get; }
         #region Repositories
         public IRefreshTokenRepository RefreshTokenRepository { get; }
-        public IAnnotationRepository AnnotationRepository { get; }
         public IAnswerRepository AnswerRepository { get; }
         public IEssayExerciseRepository EssayExerciseRepository { get; }
         public ILogRepository LogRepository { get; }
         public IMultipleChoicesExerciseRepository MultipleChoicesExerciseRepository { get; }
-        public IStudentRepository StudentRepository { get; }
         public ITestRepository TestRepository { get; }
         public IEssayAnswerRepository EssayAnswerRepository { get; }
         public IMultipleChoicesAnswerRepository MultipleChoicesAnswerRepository { get; }
+        public INotificationRepository NotificationRepository { get; }
 
         #endregion
 

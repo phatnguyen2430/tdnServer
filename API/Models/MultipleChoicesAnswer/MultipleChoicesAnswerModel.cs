@@ -5,9 +5,16 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Models.MultipleChoicesAnswer
 {
-    public class MultipleChoicesAnswerModel
+    public class MultipleChoicesAnswerResponseModel
     {
         public int Id { get; set; }
+        public int MultipleChoicesExerciseId { get; set; }
+        public int AnswerId { get; set; }
+        public string Result { get; set; }
+        public bool IsBingo { get; set; }
+    }
+    public class MultipleChoicesAnswerRequestModel
+    {
         public int MultipleChoicesExerciseId { get; set; }
         public int AnswerId { get; set; }
         public string Result { get; set; }

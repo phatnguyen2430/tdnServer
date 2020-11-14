@@ -19,5 +19,7 @@ namespace ApplicationCore.Interfaces.MultipleChoicesExerciseService
         Task<MultipleChoicesAnswer> GetByIdAsync(int id);
         Task<MultipleChoicesAnswer> AddAsync(MultipleChoicesAnswer entity);
         Task<bool> CheckExistingBasedOnAnswerIdAndExerciseId(int answerId, int multipleChoicesExerciseId);
+        Task<List<MultipleChoicesAnswer>> GetByAnswerIdAsync(int answerId);
+
     }
 }

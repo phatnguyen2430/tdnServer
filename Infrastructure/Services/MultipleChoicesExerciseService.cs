@@ -74,6 +74,12 @@ namespace Infrastructure.Services
             return multipleChoicesExercises;
         }
 
+        public async Task<List<MultipleChoicesExercise>> GetByTestIdAsync(int testId)
+        {
+            return await _unitOfWork.MultipleChoicesExerciseRepository.GetByTestIdAsync(testId);
+        }
+
+
         public Task<List<MultipleChoicesExercise>> GetByIdsAsync(List<int> ids)
         {
             var result = _unitOfWork.MultipleChoicesExerciseRepository.GetQueryable(filter: x => ids.Contains(x.Id)).ToList();

@@ -3,6 +3,7 @@ using ApplicationCore.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,11 @@ namespace Infrastructure.Data.Repositories
         public async Task<EssayExercise> EagerGetByIdAsync(int id)
         {
             return await DbSet.Include(c => c.Id == id).FirstOrDefaultAsync();
+        }
+        public async Task<List<EssayExercise>> GetByTestIdAsync(int testId)
+        {
+            var essayExerciseList = await DbSet.Where(x => x.TestId == testId).ToListAsync();
+            return essayExerciseList;
         }
     }
 }

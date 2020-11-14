@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateMultipleChoicesExercise([FromBody] MultipleChoicesExerciseModel model)
+        public async Task<IActionResult> CreateMultipleChoicesExercise([FromBody] MultipleChoicesExerciseRequestModel model)
         {
             var newMultipleChoicesExercise = new MultipleChoicesExercise();
             try
@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
             {
                 return ErrorResult(e.Message);
             }
-            return SuccessResult(newMultipleChoicesExercise, "Created MultipleChoicesExercise successfully.");
+            return SuccessResult(model, "Created MultipleChoicesExercise successfully.");
         }
 
         //get MultipleChoicesExercise by id
@@ -92,7 +92,7 @@ namespace WebAPI.Controllers
             {
                 return ErrorResult($"Can not found Multiple Choices Exercise with Id: {id}");
             }
-            var multipleChoicesExerciseRes = new MultipleChoicesExerciseModel
+            var multipleChoicesExerciseRes = new MultipleChoicesExerciseResponseModel
             {
                 Id = multipleChoicesExercise.Id,
                 TestId = multipleChoicesExercise.TestId,

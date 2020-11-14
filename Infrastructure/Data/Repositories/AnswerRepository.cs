@@ -21,16 +21,16 @@ namespace Infrastructure.Data.Repositories
         /// get ansswere by test id and student id
         /// </summary>
         /// <param name="testId"></param>
-        /// <param name="studentId"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
         public async Task<Answer> EagerGetByIdAsync(int id)
         {
             return await DbSet.Include(c => c.Id == id ).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> CheckIfStudentDidTest(int studentId, int testId)
+        public async Task<bool> CheckIfStudentDidTest(int userId, int testId)
         {
-            var list = await DbSet.Where(x => x.StudentId == studentId).Where(x => x.TestId == testId).ToListAsync();
+            var list = await DbSet.Where(x => x.UserId == userId).Where(x => x.TestId == testId).ToListAsync();
 
             var count = list.Count();
 
@@ -39,6 +39,18 @@ namespace Infrastructure.Data.Repositories
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<Answer>> GetAnswersByUserId(int userId)
+        {
+            return await DbSet.Where(x => x.UserId == userId).ToListAsync();
+        }
+        public async Task<List<Answer>> GetAllPagingByUserId(int pageSize, int pageIndex, int userId)
+        {
+            var query = await DbSet.Where(x => x.UserId == userId).ToListAsync();
+            var count = query.Count();
+            var result = query.OrderByDescending(x => x.CreatedOnUtc).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return result;
         }
     }
 }

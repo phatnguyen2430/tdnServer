@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateEssayAnswer([FromBody] EssayAnswerModel model)
+        public async Task<IActionResult> CreateEssayAnswer([FromBody] EssayAnswerRequestModel model)
         {
             var essayAnswer = new EssayAnswer();
             try
@@ -104,7 +104,7 @@ namespace WebAPI.Controllers
             {
                 return ErrorResult($"Can not found Essay Answer with Id: {id}");
             }
-            var essayAnswerRes = new EssayAnswerModel
+            var essayAnswerRes = new EssayAnswerResponseModel
             {
                 Id = essayAnswer.Id,
                 AnswerId = essayAnswer.AnswerId,

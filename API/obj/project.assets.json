@@ -11459,6 +11459,7 @@
       "Microsoft.AspNetCore.Identity >= 2.2.0",
       "Microsoft.CodeAnalysis.Analyzers >= 2.9.4",
       "Microsoft.EntityFrameworkCore >= 3.0.0",
+      "Microsoft.EntityFrameworkCore.Design >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Proxies >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Relational >= 3.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0",
@@ -11479,11 +11480,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\API\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\API\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\API\\WebAPI.csproj",
+      "projectPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\API\\WebAPI.csproj",
       "packagesPath": "C:\\Users\\ThinkPro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\API\\obj\\",
+      "outputPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -11503,11 +11504,11 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj"
+            "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj"
             },
-            "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -11560,6 +11561,12 @@
             "version": "[2.9.4, )"
           },
           "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
+          "Microsoft.EntityFrameworkCore.Design": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
             "target": "Package",
             "version": "[3.0.0, )"
           },

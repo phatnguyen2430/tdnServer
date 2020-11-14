@@ -102,5 +102,10 @@ namespace Infrastructure.Services
         {
             return await _unitOfWork.EssayAnswerRepository.CheckAnswerIsExisting(answerId, essayExerciseId);
         }
+
+        public async Task<List<EssayAnswer>> GetByAnswerIdAsync(int answerId)
+        {
+            return await _unitOfWork.EssayAnswerRepository.GetByAnswerIdAsync(answerId);
+        }
     }
 }

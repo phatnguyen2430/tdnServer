@@ -16,15 +16,14 @@ namespace ApplicationCore.Interfaces
 
         #region Repositories
         IRefreshTokenRepository RefreshTokenRepository { get; }
-        IAnnotationRepository AnnotationRepository { get; }
         IAnswerRepository AnswerRepository { get; }
         IEssayExerciseRepository EssayExerciseRepository { get; }
         ILogRepository LogRepository { get; }
         IMultipleChoicesExerciseRepository MultipleChoicesExerciseRepository { get; }
         IEssayAnswerRepository EssayAnswerRepository { get; }
         IMultipleChoicesAnswerRepository MultipleChoicesAnswerRepository { get; }
-        IStudentRepository StudentRepository { get; }
         ITestRepository TestRepository { get; }
+        INotificationRepository NotificationRepository { get; }
         #endregion
     }
 }

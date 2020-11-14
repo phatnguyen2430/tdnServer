@@ -9284,11 +9284,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\ThinkPro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -9308,8 +9308,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj"
+            "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj"
             }
           }
         }

@@ -79,5 +79,18 @@ namespace Infrastructure.Services
             var result = _unitOfWork.TestRepository.GetQueryable(filter: x => ids.Contains(x.Id)).ToList();
             return Task.FromResult(result);
         }
+
+        public async Task<List<Test>> GetAllTestsPaging(int pageSize, int pageIndex)
+        {
+            var result =  await _unitOfWork.TestRepository.GetAllPaging(pageSize,pageIndex);
+            return result;
+        }
+
+        public async Task<int> CountTotalTest()
+        {
+            var total = await _unitOfWork.TestRepository.GetAllAsync();
+            int result = total.Count();
+            return result;
+        }
     }
 }

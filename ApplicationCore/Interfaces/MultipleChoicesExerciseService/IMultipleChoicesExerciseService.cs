@@ -18,6 +18,7 @@ namespace ApplicationCore.Interfaces.MultipleChoicesExerciseService
         Task<List<MultipleChoicesExercise>> GetByIdsAsync(List<int> ids);
         Task<MultipleChoicesExercise> GetByIdAsync(int id);
         Task<MultipleChoicesExercise> AddAsync(MultipleChoicesExercise entity);
+        Task<List<MultipleChoicesExercise>> GetByTestIdAsync(int testId);
     }
 }
 

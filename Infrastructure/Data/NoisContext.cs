@@ -12,13 +12,12 @@ using System.Collections.Generic;
 using ApplicationCore.Helpers;
 using ApplicationCore.Extensions;
 using Dapper;
-using ApplicationCore.Entities.AnnotationAggregate;
 using ApplicationCore.Entities.AnswerAggregate;
 using ApplicationCore.Entities.EssayExerciseAggregate;
 using ApplicationCore.Entities.LogAggregate;
 using ApplicationCore.Entities.MultipleChoicesExerciseAggregate;
-using ApplicationCore.Entities.StudentAggregate;
 using ApplicationCore.Entities.TestAggregate;
+using ApplicationCore.Entities.NotificationAggregate;
 
 namespace Infrastructure.Data
 {
@@ -37,21 +36,15 @@ namespace Infrastructure.Data
         }
 
         
-
-        //public DbSet<Printer> Printers { get; set; }
-        //public DbSet<Computer> Computers { get; set; }
-        //public DbSet<Job> Jobs { get; set; }
-        //public DbSet<JobLog> JobLogs { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Annotation>  Annotations { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<EssayAnswer> EssayAnswers { get; set; }
         public DbSet<EssayExercise> EssayExercises { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<MultipleChoicesAnswer> MultipleChoicesAnswers { get; set; }
         public DbSet<MultipleChoicesExercise> MultipleChoicesExercises { get; set; }
-        public DbSet<Student> Students { get; set; }
         public DbSet<Test> Tests { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
 

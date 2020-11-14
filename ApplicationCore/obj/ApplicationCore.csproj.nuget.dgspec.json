@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {}
+    "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
+    "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
+        "projectUniqueName": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
         "projectName": "ApplicationCore",
-        "projectPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
+        "projectPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\ApplicationCore.csproj",
         "packagesPath": "C:\\Users\\ThinkPro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ThinkPro\\source\\repos\\tdnServer\\ApplicationCore\\obj\\",
+        "outputPath": "C:\\Users\\ThinkPro\\Desktop\\TDN Project Main\\tdnServer\\ApplicationCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

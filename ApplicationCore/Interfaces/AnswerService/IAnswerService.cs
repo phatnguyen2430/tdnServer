@@ -18,6 +18,9 @@ namespace ApplicationCore.Interfaces.AnswerService
         Task<List<Answer>> GetByIdsAsync(List<int> ids);
         Task<Answer> GetByIdAsync(int id);
         Task<Answer> AddAsync(Answer entity);
-        Task<bool> CheckExistingBasedOnTestId(int testId, int studentId);
+        Task<bool> CheckExistingBasedOnTestId(int testId, int userId);
+        Task<List<Answer>> GetAllByUserIdAsync(int studentId);
+       Task<List<Answer>> GetAllAnswersPagingByUserId(int pageSize, int pageIndex, int userId);
+        Task<int> CountTotalAnswerByUserId(int userId);
     }
 }

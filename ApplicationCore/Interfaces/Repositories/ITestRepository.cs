@@ -9,5 +9,6 @@ namespace ApplicationCore.Interfaces.Repositories
     public interface ITestRepository : IRepositoryAsync<Test>
     {
         Task<Test> EagerGetByIdAsync(int id);
+        Task<List<Test>> GetAllPaging(int pageSize, int pageIndex);
     }
 }

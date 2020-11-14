@@ -32,5 +32,10 @@ namespace Infrastructure.Data.Repositories
             }
             return false;
         }
+
+        public async Task<List<MultipleChoicesAnswer>> GetByAnswerIdAsync(int answerId)
+        {
+            return await DbSet.Where(x => x.AnswerId == answerId).ToListAsync();
+        }
     }
 }

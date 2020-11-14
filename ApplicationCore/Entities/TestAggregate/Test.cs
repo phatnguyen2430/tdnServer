@@ -25,6 +25,7 @@ namespace ApplicationCore.Entities.TestAggregate
         History = 3,
         Geographic = 4,
         Social = 5,
-        English = 6
+        English = 6,
+        AssTest = 7
     }
 }

@@ -81,5 +81,10 @@ namespace Infrastructure.Services
             await _unitOfWork.SaveChangesAsync();
             return entity;
         }
+        public async Task<List<EssayExercise>> GetByTestIdAsync(int testId)
+        {
+            return await _unitOfWork.EssayExerciseRepository.GetByTestIdAsync(testId);
+        }
+
     }
 }

@@ -9,5 +9,6 @@ namespace ApplicationCore.Interfaces.Repositories
     public interface IMultipleChoicesExerciseRepository  : IRepositoryAsync<MultipleChoicesExercise>
     {
         Task<MultipleChoicesExercise> EagerGetByIdAsync(int id);
+        Task<List<MultipleChoicesExercise>> GetByTestIdAsync(int testId);
     }
 }

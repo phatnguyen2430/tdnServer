@@ -100,11 +100,28 @@ namespace Infrastructure.Services
         }
 
         //check if this answer has already been existing or not
-        public async Task<bool> CheckExistingBasedOnTestId(int studentId, int testId)
+        public async Task<bool> CheckExistingBasedOnTestId(int UserId, int testId)
         {
-            return await _unitOfWork.AnswerRepository.CheckIfStudentDidTest(studentId,testId);
+            return await _unitOfWork.AnswerRepository.CheckIfStudentDidTest(UserId,testId);
         }
 
+        public async Task<List<Answer>> GetAllByUserIdAsync(int UserId)
+        {
+            return await _unitOfWork.AnswerRepository.GetAnswersByUserId(UserId);
+        }
+
+        public async Task<List<Answer>> GetAllAnswersPagingByUserId(int pageSize, int pageIndex,int userId)
+        {
+            var result = await _unitOfWork.AnswerRepository.GetAllPagingByUserId(pageSize, pageIndex, userId);
+            return result;
+        }
+
+        public async Task<int> CountTotalAnswerByUserId(int userId)
+        {
+            var total = await _unitOfWork.AnswerRepository.GetAnswersByUserId(userId);
+            int result = total.Count();
+            return result;
+        }
 
         #endregion
     }

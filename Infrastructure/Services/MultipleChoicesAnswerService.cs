@@ -84,5 +84,10 @@ namespace Infrastructure.Services
         {
             return await _unitOfWork.MultipleChoicesAnswerRepository.CheckAnswerIsExisting(answerId, multipleChoicesExerciseId);
         }
+
+        public async Task<List<MultipleChoicesAnswer>> GetByAnswerIdAsync(int answerId)
+        {
+            return await _unitOfWork.MultipleChoicesAnswerRepository.GetByAnswerIdAsync(answerId);
+        }
     }
 }

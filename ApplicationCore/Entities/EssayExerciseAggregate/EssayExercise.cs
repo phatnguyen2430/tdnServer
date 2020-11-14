@@ -12,5 +12,6 @@ namespace ApplicationCore.Entities.EssayExerciseAggregate
         public virtual Test Test { get; set; }
         public string Title { get; set; }
         public string Result { get; set; }
+        public byte[] Image { get; set; }
     }
 }

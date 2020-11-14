@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateMultipleChoicesAnswer([FromBody] MultipleChoicesAnswerModel model)
+        public async Task<IActionResult> CreateMultipleChoicesAnswer([FromBody] MultipleChoicesAnswerRequestModel model)
         {
             var newMultipleChoicesAnswer = new MultipleChoicesAnswer();
             try
@@ -104,7 +104,7 @@ namespace WebAPI.Controllers
             {
                 return ErrorResult($"Can not found Multiple Choices Answer with Id: {id}");
             }
-            var multipleChoicesAnswerRes = new MultipleChoicesAnswerModel
+            var multipleChoicesAnswerRes = new MultipleChoicesAnswerResponseModel
             {
                 AnswerId = multipleChoicesAnswer.AnswerId,
                 Id = multipleChoicesAnswer.Id,

@@ -7,20 +7,34 @@ using WebAPI.Models.MultipleChoicesAnswer;
 
 namespace WebAPI.Models.Answer
 {
-    public class AnswerModel
+    public class AnswerResponseModel
     {
         public int Id { get; set; }
         public int TestId { get; set; }
         public double Score { get; set; }
-        public int StudentId { get; set; }
+        public int UserId { get; set; }
     }
-    public class AnswerContainerModel
+    public class AnswerRequestModel
+    {
+        public int TestId { get; set; }
+        public double Score { get; set; }
+        public int UserId { get; set; }
+    }
+    public class AnswerContainerResponseModel
     {
         public int Id { get; set; }
         public int TestId { get; set; }
         public double Score { get; set; }
-        public int StudentId { get; set; }
-        public List<MultipleChoicesAnswerModel> MultipleChoicesAnswerModels { get; set; }
-        public List<EssayAnswerModel> EssayAnswerModels { get; set; }
+        public int UserId { get; set; }
+        public List<MultipleChoicesAnswerResponseModel> MultipleChoicesAnswerResponseModels { get; set; }
+        public List<EssayAnswerResponseModel> EssayAnswerResponseModels { get; set; }
+    }
+    public class AnswerContainerRequestModel
+    {
+        public int TestId { get; set; }
+        public double Score { get; set; }
+        public int UserId { get; set; }
+        public List<MultipleChoicesAnswerRequestModel> MultipleChoicesAnswerRequestModels { get; set; }
+        public List<EssayAnswerRequestModel> EssayAnswerRequestModels { get; set; }
     }
 }

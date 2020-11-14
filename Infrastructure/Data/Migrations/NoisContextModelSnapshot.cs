@@ -19,38 +19,6 @@ namespace Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ApplicationCore.Entities.AnnotationAggregate.Annotation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOnUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsChecked")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedOnUtc")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Annotation");
-                });
-
             modelBuilder.Entity("ApplicationCore.Entities.AnswerAggregate.Answer", b =>
                 {
                     b.Property<int>("Id")
@@ -64,20 +32,20 @@ namespace Infrastructure.Data.Migrations
                     b.Property<double>("Score")
                         .HasColumnType("float");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TestId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedOnUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
-
                     b.HasIndex("TestId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Answer");
                 });
@@ -126,6 +94,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Result")
                         .HasColumnType("nvarchar(max)");
@@ -246,6 +217,12 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -262,6 +239,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -456,6 +436,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<string>("FalseResult3")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("RightResult")
                         .HasColumnType("nvarchar(max)");
 
@@ -475,46 +458,39 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("MultipleChoicesExercise");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.StudentAggregate.Student", b =>
+            modelBuilder.Entity("ApplicationCore.Entities.NotificationAggregate.Notification", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int?>("Age")
-                        .HasColumnType("int");
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedOnUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("testId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Student");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notification");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.TestAggregate.Test", b =>
@@ -541,26 +517,17 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Test");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.AnnotationAggregate.Annotation", b =>
-                {
-                    b.HasOne("ApplicationCore.Entities.StudentAggregate.Student", "Student")
-                        .WithMany("Annotations")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ApplicationCore.Entities.AnswerAggregate.Answer", b =>
                 {
-                    b.HasOne("ApplicationCore.Entities.StudentAggregate.Student", "Student")
-                        .WithMany("Answers")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ApplicationCore.Entities.TestAggregate.Test", "Test")
                         .WithMany("Answers")
                         .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationCore.Entities.Identity.User", "User")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -657,6 +624,15 @@ namespace Infrastructure.Data.Migrations
                     b.HasOne("ApplicationCore.Entities.TestAggregate.Test", "Test")
                         .WithMany("MultipleChoicesExercises")
                         .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.NotificationAggregate.Notification", b =>
+                {
+                    b.HasOne("ApplicationCore.Entities.Identity.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
