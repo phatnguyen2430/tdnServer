@@ -13,6 +13,11 @@ namespace WebAPI.Models.Test
         public TestType Type { get; set; }
         public string Name { get; set; }
     }
+    public class TestRequestModel
+    {
+        public TestType Type { get; set; }
+        public string Name { get; set; }
+    }
 
     public class TestCreateModel
     {

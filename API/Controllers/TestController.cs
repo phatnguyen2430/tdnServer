@@ -64,9 +64,55 @@ namespace WebAPI.Controllers
             return SuccessResult(testRes, "Get test with Id = "+ test.Id.ToString() +" successfully.");
         }
 
+        //get  Test by id
+        [HttpPut("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateTestById([FromRoute] int id,[FromBody] TestRequestModel testRequestModel)
+        {
+            try
+            {
+                //get entity by id
+                var test = await _service.TestService.GetByIdAsync(id);
+                if (test == null)
+                {
+                    return ErrorResult($"Can not found test with Id: {id}");
+                }
+
+                //map requestModel to entity -> update
+                test.Name = testRequestModel.Name;
+                test.Type = (ApplicationCore.Entities.TestAggregate.TestType)testRequestModel.Type;
+
+                //update
+                await _service.TestService.UpdateAsync(test);
+
+                //check to return
+                if (test == null)
+                {
+                    return ErrorResult($"Can not found test with Id: {id}");
+                }
+                var testRes = new TestModel
+                {
+                    Name = test.Name,
+                    Id = test.Id,
+                    Type = (Models.Test.TestType)test.Type
+                };
+                return SuccessResult(testRes, "Update Test successfully.");
+            }
+            catch (Exception e)
+            {
+                return ErrorResult(e.ToString());
+            }
+        }
+
+
+
 
         //get  Test by id
-        [HttpGet("{id}-contains")]
+        [HttpGet("{id}/contains")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -169,7 +215,7 @@ namespace WebAPI.Controllers
 
         //Add Test Model -> contains 28 multiple choices & 8 essay
         [AllowAnonymous]
-        [HttpPost("create-contains")]
+        [HttpPost("create/contains")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -277,7 +323,7 @@ namespace WebAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpGet("get-all")]
+        [HttpGet("get/all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -320,12 +366,12 @@ namespace WebAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpGet("get-all-paging")]
+        [HttpGet("get/all/{pageIndex}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllPaging([FromBody] TestPagingModel model)
+        public async Task<IActionResult> GetAllPaging([FromRoute] int pageindex)
         {
             var newTests = new List<TestModel>();
             try
@@ -334,7 +380,7 @@ namespace WebAPI.Controllers
                 var totalCount = await _service.TestService.CountTotalTest();
 
                 //run code
-                var queryRes = await _service.TestService.GetAllTestsPaging(model.PageSize, model.PageIndex);
+                var queryRes = await _service.TestService.GetAllTestsPaging(pageindex);
                 if (totalCount >0)
                 {
                     //render page

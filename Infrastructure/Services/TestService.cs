@@ -80,9 +80,14 @@ namespace Infrastructure.Services
             return Task.FromResult(result);
         }
 
-        public async Task<List<Test>> GetAllTestsPaging(int pageSize, int pageIndex)
+        //public async Task<List<Test>> GetAllTestsPaging(int pageSize, int pageIndex)
+        //{
+        //    var result =  await _unitOfWork.TestRepository.GetAllPaging(pageSize,pageIndex);
+        //    return result;
+        //}
+        public async Task<List<Test>> GetAllTestsPaging(int pageIndex)
         {
-            var result =  await _unitOfWork.TestRepository.GetAllPaging(pageSize,pageIndex);
+            var result = await _unitOfWork.TestRepository.GetAllPaging(25, pageIndex);
             return result;
         }
 
@@ -91,6 +96,14 @@ namespace Infrastructure.Services
             var total = await _unitOfWork.TestRepository.GetAllAsync();
             int result = total.Count();
             return result;
+        }
+
+
+        public async Task<Test> UpdateAsync(Test entity)
+        {
+            await _unitOfWork.TestRepository.UpdateAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
+            return entity;
         }
     }
 }

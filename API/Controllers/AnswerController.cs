@@ -106,7 +106,7 @@ namespace WebAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpPost("create-contains")]
+        [HttpPost("create/contains")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -251,7 +251,7 @@ namespace WebAPI.Controllers
         }
 
         //fix the answer of student 
-        [HttpPost("fix")]
+        [HttpPut("fix")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -280,7 +280,7 @@ namespace WebAPI.Controllers
 
         //get all by userId
         [AllowAnonymous]
-        [HttpGet("get-all-by-{userId}")]
+        [HttpGet("get/all/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -320,21 +320,21 @@ namespace WebAPI.Controllers
 
         //get by userId paging
         [AllowAnonymous]
-        [HttpPost("get-all-paging-by-{userId}")]
+        [HttpPost("{userId}/get/all/{pageIndex}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllByUserIdPaging([FromBody] AnswerPagingModel model)
+        public async Task<IActionResult> GetAllByUserIdPaging([FromRoute]int userId, [FromRoute] int pageIndex)
         {
             var newTests = new List<AnswerResponseModel>();
             try
             {
                 //get totalCount
-                var totalCount = await _service.AnswerService.CountTotalAnswerByUserId(model.UserId);
+                var totalCount = await _service.AnswerService.CountTotalAnswerByUserId(userId);
 
                 //run code
-                var queryRes = await _service.AnswerService.GetAllAnswersPagingByUserId(model.PageSize, model.PageIndex,model.UserId);
+                var queryRes = await _service.AnswerService.GetAllAnswersPagingByUserId(25, pageIndex, userId);
                 if (totalCount > 0)
                 {
                     //render page
@@ -392,7 +392,7 @@ namespace WebAPI.Controllers
 
 
         //get answer by Id Contains
-        [HttpGet("{id}-contains")]
+        [HttpGet("{id}/contains")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

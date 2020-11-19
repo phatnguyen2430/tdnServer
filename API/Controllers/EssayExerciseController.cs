@@ -84,20 +84,81 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetEssayExerciseById([FromRoute] int id)
         {
-            var essayExercise = await _service.EssayExerciseService.GetByIdAsync(id);
-            if (essayExercise == null)
+            try
             {
-                return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                var essayExercise = await _service.EssayExerciseService.GetByIdAsync(id);
+                if (essayExercise == null)
+                {
+                    return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                }
+                var essayExerciseRes = new EssayExerciseResponseModel()
+                {
+                    Id = essayExercise.Id,
+                    Image = essayExercise.Image,
+                    Result = essayExercise.Result,
+                    TestId = essayExercise.TestId,
+                    Title = essayExercise.Title
+                };
+                return SuccessResult(essayExerciseRes, "Get Essay Exercise successfully.");
             }
-            var essayExerciseRes = new EssayExerciseResponseModel()
+            catch (Exception e)
             {
-                Id = essayExercise.Id,
-                Image = essayExercise.Image,
-                Result = essayExercise.Result,
-                TestId = essayExercise.TestId,
-                Title = essayExercise.Title
-            };
-            return SuccessResult(essayExerciseRes, "Get Essay Exercise successfully.");
+                return ErrorResult(e.ToString());
+            }
+        }
+
+        /// <summary>
+        /// update essay exercise
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateEssayExerciseById([FromRoute] int id,
+            [FromBody] EssayExerciseRequestModel essayExerciseRequestModel)
+        {
+            try
+            {
+                //get entity by id
+                var essayExercise = await _service.EssayExerciseService.GetByIdAsync(id);
+                if (essayExercise == null)
+                {
+                    return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                }
+
+                //map requestModel to entity -> update
+                essayExercise.Image = essayExerciseRequestModel.Image;
+                essayExercise.Title = essayExerciseRequestModel.Title;
+                essayExercise.Result = essayExerciseRequestModel.Result;
+
+                //update
+                await _service.EssayExerciseService.UpdateAsync(essayExercise);
+
+
+                //check to return
+                if (essayExercise == null)
+                {
+                    return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                }
+
+                var essayExerciseRes = new EssayExerciseResponseModel()
+                {
+                    Id = essayExercise.Id,
+                    Image = essayExercise.Image,
+                    Result = essayExercise.Result,
+                    TestId = essayExercise.TestId,
+                    Title = essayExercise.Title
+                };
+                return SuccessResult(essayExerciseRes, "Update Essay Exercise successfully.");
+            }
+            catch (Exception e)
+            {
+                return ErrorResult(e.ToString());
+            }
         }
 
 

@@ -104,6 +104,66 @@ namespace WebAPI.Controllers
             };
             return SuccessResult(multipleChoicesExerciseRes, "Get Multiple Choices Exercise successfully.");
         }
+
+
+        /// <summary>
+        /// update multipe choices exercise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateMultipleChoicesExerciseById([FromRoute] int id, 
+            [FromBody] MultipleChoicesExerciseRequestModel multipleChoicesExerciseRequestModel)
+        {
+            try
+            {
+                //get entity by id
+                var multipleChoicesExercise = await _service.MultipleChoicesExerciseService.GetByIdAsync(id);
+                if (multipleChoicesExercise == null)
+                {
+                    return ErrorResult($"Can not found Multiple Choices Exercise with Id: {id}");
+                }
+
+                //map requestModel to entity -> update
+                multipleChoicesExercise.Image = multipleChoicesExerciseRequestModel.Image;
+                multipleChoicesExercise.Title = multipleChoicesExerciseRequestModel.Title;
+                multipleChoicesExercise.RightResult = multipleChoicesExerciseRequestModel.RightResult;
+                multipleChoicesExercise.FalseResult1 = multipleChoicesExerciseRequestModel.FalseResult1;
+                multipleChoicesExercise.FalseResult2 = multipleChoicesExerciseRequestModel.FalseResult2;
+                multipleChoicesExercise.FalseResult3 = multipleChoicesExerciseRequestModel.FalseResult3;
+
+                //update
+                await _service.MultipleChoicesExerciseService.UpdateAsync(multipleChoicesExercise);
+
+                //check to return
+                if (multipleChoicesExercise == null)
+                {
+                    return ErrorResult($"Can not found Multiple Choices Exercise with Id: {id}");
+                }
+
+                var multipleChoicesExerciseRes = new MultipleChoicesExerciseResponseModel
+                {
+                    Id = multipleChoicesExercise.Id,
+                    TestId = multipleChoicesExercise.TestId,
+                    Title = multipleChoicesExercise.Title,
+                    RightResult = multipleChoicesExercise.RightResult,
+                    FalseResult1 = multipleChoicesExercise.FalseResult1,
+                    FalseResult2 = multipleChoicesExercise.FalseResult2,
+                    FalseResult3 = multipleChoicesExercise.FalseResult3
+                };
+                return SuccessResult(multipleChoicesExerciseRes, "Update Choices Exercise successfully.");
+            }
+            catch (Exception e)
+            {
+                return ErrorResult(e.ToString());
+            }
+        }
+
         #endregion
     }
 }

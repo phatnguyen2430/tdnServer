@@ -19,6 +19,86 @@ namespace WebAPI.Controllers
             _service = service;
         }
 
+        #region admin service
+        /// <summary>
+        /// register api
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("admin/register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> AdminRegister([FromBody] RegistrationRequest model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return ErrorResult(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
+                }
+                var result = await _service.IdentityService.RegisterAsync(model.Email, model.Password,
+                    model.Name,
+                    model.Age,
+                    model.Address,
+                    model.PhoneNumber,
+                    "admin");
+
+                //get user Id
+                var userId = await _service.IdentityService.GetUserIdByEmail(model.Email);
+
+                if (!result.IsSuccess)
+                {
+                    return ErrorResult(result.ErrorMessages);
+                }
+                return SuccessResult(new AuthSuccessResponse
+                {
+                    Token = result.Token,
+                    RefreshToken = result.RefreshToken,
+                    UserId = userId
+                });
+            }
+            catch (Exception e )
+            {
+                return ErrorResult(e.ToString());
+            }
+        }
+
+        [HttpPost("admin/login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> AdminLogin([FromBody] LoginRequest model)
+        {
+            try
+            {
+                var result = await _service.IdentityService.LoginAsync(model.Email, model.Password);
+                //get user Id
+                var userId = await _service.IdentityService.GetUserIdByEmail(model.Email);
+
+                //check role
+                var role = await _service.IdentityService.GetUserRoleByEmail(model.Email);
+                if (role != "admin")
+                {
+                    return ErrorResult("This is " + role + " account not Admin Account");
+                }
+
+                if (!result.IsSuccess)
+                {
+                    return ErrorResult(result.ErrorMessages);
+                }
+                return SuccessResult(new AuthSuccessResponse
+                {
+                    Token = result.Token,
+                    RefreshToken = result.RefreshToken,
+                    UserId = userId
+                });
+            }
+            catch (Exception e)
+            {
+                return ErrorResult(e.ToString());
+            }
+        }
+
+        #endregion
+
+
         /// <summary>
         /// register api
         /// </summary>
@@ -28,29 +108,37 @@ namespace WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegistrationRequest model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return ErrorResult(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
-            }
-            var result = await _service.IdentityService.RegisterAsync(model.Email, model.Password,
-                model.Name,
-                model.Age,
-                model.Address,
-                model.PhoneNumber);
+                if (!ModelState.IsValid)
+                {
+                    return ErrorResult(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
+                }
+                var result = await _service.IdentityService.RegisterAsync(model.Email, model.Password,
+                    model.Name,
+                    model.Age,
+                    model.Address,
+                    model.PhoneNumber,
+                    "student");
 
-            //get user Id
-            var userId = await _service.IdentityService.GetUserIdByEmail(model.Email);
+                //get user Id
+                var userId = await _service.IdentityService.GetUserIdByEmail(model.Email);
 
-            if (!result.IsSuccess)
-            {
-                return ErrorResult(result.ErrorMessages);
+                if (!result.IsSuccess)
+                {
+                    return ErrorResult(result.ErrorMessages);
+                }
+                return SuccessResult(new AuthSuccessResponse
+                {
+                    Token = result.Token,
+                    RefreshToken = result.RefreshToken,
+                    UserId = userId
+                });
             }
-            return SuccessResult(new AuthSuccessResponse
+            catch (Exception e)
             {
-                Token = result.Token,
-                RefreshToken = result.RefreshToken,
-                UserId = userId
-            });
+                return ErrorResult(e.ToString());
+            }
         }
 
         /// <summary>
@@ -62,40 +150,62 @@ namespace WebAPI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest model)
         {
-            var result = await _service.IdentityService.LoginAsync(model.UserName, model.Password);
-            //get user Id
-            var userId = await _service.IdentityService.GetUserIdByEmail(model.UserName);
-            if (!result.IsSuccess)
+            try
             {
-                return ErrorResult(result.ErrorMessages);
+                var result = await _service.IdentityService.LoginAsync(model.Email, model.Password);
+                //get user Id
+                var userId = await _service.IdentityService.GetUserIdByEmail(model.Email);
+
+                //check role
+                var role = await _service.IdentityService.GetUserRoleByEmail(model.Email);
+                if (role != "student")
+                {
+                    return ErrorResult("This is " + role + " account not student account");
+                }
+
+                if (!result.IsSuccess)
+                {
+                    return ErrorResult(result.ErrorMessages);
+                }
+                return SuccessResult(new AuthSuccessResponse
+                {
+                    Token = result.Token,
+                    RefreshToken = result.RefreshToken,
+                    UserId = userId
+                });
             }
-            return SuccessResult(new AuthSuccessResponse
+            catch (Exception e)
             {
-                Token = result.Token,
-                RefreshToken = result.RefreshToken,
-                UserId = userId
-            });
+                return ErrorResult(e.ToString());
+            }
         }
 
         [HttpPost("refresh")]
         [AllowAnonymous]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest model)
         {
-            var result = await _service.IdentityService.RefreshTokenAsync(model.Token, model.RefreshToken);
-            if (!result.IsSuccess)
+            try
             {
-                return ErrorResult(result.ErrorMessages);
+                var result = await _service.IdentityService.RefreshTokenAsync(model.Token, model.RefreshToken);
+                if (!result.IsSuccess)
+                {
+                    return ErrorResult(result.ErrorMessages);
+                }
+                return SuccessResult(new AuthSuccessResponse
+                {
+                    Token = result.Token,
+                    RefreshToken = result.RefreshToken
+                });
             }
-            return SuccessResult(new AuthSuccessResponse
+            catch (Exception e)
             {
-                Token = result.Token,
-                RefreshToken = result.RefreshToken
-            });
+                return ErrorResult(e.ToString());
+            }
         }
 
         //update user detail
         [AllowAnonymous]
-        [HttpPost("update-detail")]
+        [HttpPost("update/detail")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -146,7 +256,7 @@ namespace WebAPI.Controllers
 
         //update user password
         [AllowAnonymous]
-        [HttpPost("update-password")]
+        [HttpPut("update/password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -179,7 +289,7 @@ namespace WebAPI.Controllers
 
         //update user email
         [AllowAnonymous]
-        [HttpPost("update-email")]
+        [HttpPut("update/email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -211,7 +321,7 @@ namespace WebAPI.Controllers
 
         //delete user
         [AllowAnonymous]
-        [HttpPost("delete-user")]
+        [HttpDelete("delete/user")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -240,17 +350,17 @@ namespace WebAPI.Controllers
 
         //get all user paging
         [AllowAnonymous]
-        [HttpPost("get-all-paging")]
+        [HttpPost("get/all/{pageIndex}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAllPaging([FromBody] AccountPagingModel model)
+        public async Task<IActionResult> GetAllPaging([FromRoute] int pageIndex)
         {
             var newUsers = new List<AccountResponseModel>();
             try
             {
-                var queryRes = await _service.IdentityService.GetAllPaging(model.PageSize, model.PageIndex);
+                var queryRes = await _service.IdentityService.GetAllPaging(25, pageIndex);
                 if (queryRes.Count() > 0)
                 {
                     //render page
@@ -275,6 +385,5 @@ namespace WebAPI.Controllers
                 return ErrorResult(e.Message);
             }
         }
-
     }
 }

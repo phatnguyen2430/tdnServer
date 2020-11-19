@@ -26,11 +26,13 @@ namespace Infrastructure.Services
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IEmailService _emailService;
         private readonly Settings _settings;
+        private readonly RoleManager<Role> _roleManager;
         public IdentityService(UserManager<User> userManager,
             JwtSettings jwtSettings,
             TokenValidationParameters tokenValidationParameters,
             IUnitOfWork unitOfWork, IRefreshTokenRepository refreshTokenRepository,
-            IEmailService emailService, Settings settings)
+            IEmailService emailService, Settings settings,
+            RoleManager<Role> roleManager)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings;
@@ -39,11 +41,12 @@ namespace Infrastructure.Services
             _refreshTokenRepository = refreshTokenRepository;
             _emailService = emailService;
             _settings = settings;
+            _roleManager = roleManager;
         }
 
 
         public async Task<AuthenticationResult> RegisterAsync(string email, string password, string name,
-            int age, string address, string phoneNumber)
+            int age, string address, string phoneNumber, string role)
         {
             var existingUser = await _userManager.FindByEmailAsync(email);
             if (existingUser != null)
@@ -67,7 +70,21 @@ namespace Infrastructure.Services
             //get user Id
             var userId = newUser.Id;
             //add role : 1-> student, 2->admin
-            await _userManager.AddToRoleAsync(newUser, "student");
+            //check is role existing
+            var isExistingRole = await _roleManager.FindByNameAsync(role);
+            if (isExistingRole == null)
+            {
+                var newRole = new Role()
+                {
+                    Name = role,
+                    NormalizedName = role
+                };
+                //create new role
+                await _roleManager.CreateAsync(newRole);
+            }
+
+            //add to this role
+            await _userManager.AddToRoleAsync(newUser, role);
 
 
             if (!result.Succeeded)
@@ -407,6 +424,15 @@ namespace Infrastructure.Services
                 return 0;
             }
         }
+
+        public async Task<string> GetUserRoleByEmail(string email)
+        {
+            //get user -> get id
+            var user = await _userManager.FindByEmailAsync(email);
+            var role = await _userManager.GetRolesAsync(user);
+            return role.FirstOrDefault().ToString();
+        }
+
 
     }
 }

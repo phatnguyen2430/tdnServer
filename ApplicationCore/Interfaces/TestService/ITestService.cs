@@ -18,7 +18,8 @@ namespace ApplicationCore.Interfaces.TestService
         Task<List<Test>> GetByIdsAsync(List<int> ids);
         Task<Test> GetByIdAsync(int id);
         Task<Test> AddAsync(Test entity);
-        Task<List<Test>> GetAllTestsPaging(int pageSize, int pageIndex);
+        Task<List<Test>> GetAllTestsPaging(int pageIndex);
         Task<int> CountTotalTest();
+        Task<Test> UpdateAsync(Test entity);
     }
 }

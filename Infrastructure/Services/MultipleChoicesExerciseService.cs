@@ -85,5 +85,14 @@ namespace Infrastructure.Services
             var result = _unitOfWork.MultipleChoicesExerciseRepository.GetQueryable(filter: x => ids.Contains(x.Id)).ToList();
             return Task.FromResult(result);
         }
+
+        public async Task<MultipleChoicesExercise> UpdateAsync(MultipleChoicesExercise multipleChoicesExercise)
+        {
+            await _unitOfWork.MultipleChoicesExerciseRepository.UpdateAsync(multipleChoicesExercise);
+            await _unitOfWork.SaveChangesAsync();
+            return multipleChoicesExercise;
+        }
+
+
     }
 }

@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Porcupine Dinosaur\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Porcupine Dinosaur\\.nuget\\packages"
+    ]
+  }
+}

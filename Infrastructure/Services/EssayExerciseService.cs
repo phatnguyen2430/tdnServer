@@ -86,5 +86,12 @@ namespace Infrastructure.Services
             return await _unitOfWork.EssayExerciseRepository.GetByTestIdAsync(testId);
         }
 
+        public async Task<EssayExercise> UpdateAsync(EssayExercise entity)
+        {
+            await _unitOfWork.EssayExerciseRepository.UpdateAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
+            return entity;
+        }
+
     }
 }

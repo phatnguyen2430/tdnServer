@@ -23,3 +23,12 @@ C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csproj.CoreCompileInputs.cache
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.dll
 C:\Users\ThinkPro\source\repos\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.pdb
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.deps.json
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.dll
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\bin\Debug\netcoreapp3.0\ApplicationCore.pdb
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csprojAssemblyReference.cache
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.dll
+C:\Users\Porcupine Dinosaur\Desktop\On Working Projects\tdnServer\ApplicationCore\obj\Debug\netcoreapp3.0\ApplicationCore.pdb
