@@ -107,5 +107,10 @@ namespace Infrastructure.Services
         {
             return await _unitOfWork.EssayAnswerRepository.GetByAnswerIdAsync(answerId);
         }
+        public async Task<List<int>> GetUnfixedTestIdsAsync(int pageIndex)
+        {
+            var res = await _unitOfWork.EssayAnswerRepository.GetUnfixedTestIdsAsync(pageIndex);
+            return res;
+        }
     }
 }

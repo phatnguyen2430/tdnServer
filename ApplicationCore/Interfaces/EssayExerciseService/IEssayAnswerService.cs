@@ -21,5 +21,6 @@ namespace ApplicationCore.Interfaces.EssayExerciseService
         Task<bool> CheckExistingBasedOnAnswerIdAndExerciseId(int answerId, int essayExerciseId);
         Task<EssayAnswer> UpdateAsync(EssayAnswer entity);
         Task<List<EssayAnswer>> GetByAnswerIdAsync(int answerId);
+        Task<List<int>> GetUnfixedTestIdsAsync(int pageIndex);
     }
 }

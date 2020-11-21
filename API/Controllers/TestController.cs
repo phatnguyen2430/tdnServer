@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
             var test = await _service.TestService.GetByIdAsync(id);
             if (test == null)
             {
-                return ErrorResult($"Can not found test with Id: {id}");
+                return Unauthorized($"Can not found test with Id: {id}");
             }
             var testRes = new TestModel
             {
@@ -79,7 +79,7 @@ namespace WebAPI.Controllers
                 var test = await _service.TestService.GetByIdAsync(id);
                 if (test == null)
                 {
-                    return ErrorResult($"Can not found test with Id: {id}");
+                    return Unauthorized($"Can not found test with Id: {id}");
                 }
 
                 //map requestModel to entity -> update
@@ -92,7 +92,7 @@ namespace WebAPI.Controllers
                 //check to return
                 if (test == null)
                 {
-                    return ErrorResult($"Can not found test with Id: {id}");
+                    return Unauthorized($"Can not found test with Id: {id}");
                 }
                 var testRes = new TestModel
                 {
@@ -104,7 +104,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -112,7 +112,7 @@ namespace WebAPI.Controllers
 
 
         //get  Test by id
-        [HttpGet("{id}/contains")]
+        [HttpGet("contains/{id}")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -123,7 +123,7 @@ namespace WebAPI.Controllers
             var test = await _service.TestService.GetByIdAsync(id);
             if (test == null)
             {
-                return ErrorResult($"Can not found test with Id: {id}");
+                return Unauthorized($"Can not found test with Id: {id}");
             }
             //create TestContainerModel
             var testRes = new TestContainerResponseModel
@@ -138,12 +138,15 @@ namespace WebAPI.Controllers
             var mulList = new List<MultipleChoicesExerciseResponseModel>();
             foreach (var multipleChoicesExercise in multipleChoicesExercisesList)
             {
+                //convert Phat to Ngoc Anh 64
+                string base64String = Convert.ToBase64String(multipleChoicesExercise.Image, 0,
+                    multipleChoicesExercise.Image.Length);
                 var newMultipleChoiceExercise = new MultipleChoicesExerciseResponseModel()
                 {
                     Id = multipleChoicesExercise.Id,
                     TestId = multipleChoicesExercise.TestId,
                     Title = multipleChoicesExercise.Title,
-                    Image = multipleChoicesExercise.Image,
+                    Image = base64String,
                     RightResult = multipleChoicesExercise.RightResult,
                     FalseResult1 = multipleChoicesExercise.FalseResult1,
                     FalseResult2 = multipleChoicesExercise.FalseResult2,
@@ -158,10 +161,13 @@ namespace WebAPI.Controllers
             var essList = new List<EssayExerciseResponseModel>();
             foreach (var essayExercise in essayExercisesList)
             {
+                string base64String = Convert.ToBase64String(essayExercise.Image, 0,
+                essayExercise.Image.Length);
+
                 var newEssayExercise = new EssayExerciseResponseModel()
                 {
                     Id = essayExercise.Id,
-                    Image = essayExercise.Image,
+                    Image = base64String,
                     Result = essayExercise.Result,
                     Title = essayExercise.Title,
                     TestId = essayExercise.TestId
@@ -208,14 +214,14 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
             return SuccessResult(newTest, "Created Test successfully.");
         }
 
         //Add Test Model -> contains 28 multiple choices & 8 essay
         [AllowAnonymous]
-        [HttpPost("create/contains")]
+        [HttpPost("contains/create")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -252,6 +258,12 @@ namespace WebAPI.Controllers
                 //add multiple exercise
                 foreach (var multipleExercise in model.MultipleChoicesExerciseRequestModels)
                 {
+                    //delete base -> ','
+                    multipleExercise.Image = multipleExercise.Image.Split(',')[1];
+
+                    //parse Ngoc Anh 64 to Phat :'( :'( :'(
+                    byte[] imageBytes = Convert.FromBase64String(multipleExercise.Image) ;
+
                     var newMultipleExercise = new MultipleChoicesExercise()
                     {
                         TestId = newTest.Id,
@@ -260,7 +272,7 @@ namespace WebAPI.Controllers
                         FalseResult2 = multipleExercise.FalseResult2,
                         FalseResult3 = multipleExercise.FalseResult3,
                         Title = multipleExercise.Title,
-                        Image = multipleExercise.Image
+                        Image = imageBytes
                     };
                     await _service.MultipleChoicesExerciseService.AddAsync(newMultipleExercise);
 
@@ -282,12 +294,18 @@ namespace WebAPI.Controllers
                 //add essay exercise
                 foreach (var essayExercise in model.EssayExerciseRequestModels)
                 {
+                    //delete base -> ','
+                    essayExercise.Image = essayExercise.Image.Split(',')[1];
+
+                    //parse Ngoc Anh 64 to Phat :'( :'( :'(
+                    byte[] imageBytes = Convert.FromBase64String(essayExercise.Image);
+
                     var newEssayExerecise = new EssayExercise()
                     {
                         TestId = newTest.Id,
                         Title = essayExercise.Title,
                         Result = essayExercise.Result,
-                        Image = essayExercise.Image
+                        Image = imageBytes
                     };
                     await _service.EssayExerciseService.AddAsync(newEssayExerecise);
 
@@ -310,7 +328,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -351,7 +369,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
             return SuccessResult(newTests, "Get all Test successfully.");
         }
@@ -399,10 +417,56 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
+
+        //delete Test
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteById([FromRoute] int id)
+        {
+            try
+            {
+                //get all essay exercises
+                var essayExercisesList = await _service.EssayExerciseService.GetByTestIdAsync(id);
+                //-> delete all essay exercises
+                foreach (var essayExercise in essayExercisesList)
+                {
+                    //delete
+                    await _service.EssayExerciseService.DeleteAsync(essayExercise);
+                }
+
+                //get all multiple choices exercise
+                var multipleChoicesExercisesList = await _service.MultipleChoicesExerciseService.GetByTestIdAsync(id);
+                //->delete all multiple choices exercises
+                foreach (var multipleChoicesExercise in multipleChoicesExercisesList)
+                {
+                    //delete
+                    await _service.MultipleChoicesExerciseService.DeleteAsync(multipleChoicesExercise);
+                }
+
+                //get entity by id
+                var test = await _service.TestService.GetByIdAsync(id);
+                if (test == null)
+                {
+                    return Unauthorized($"Can not found test with Id: {id}");
+                }
+
+                await _service.TestService.DeleteAsync(test);
+
+                return SuccessResult("Delete Test successfully.");
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.ToString());
+            }
+        }
 
         #endregion
     }

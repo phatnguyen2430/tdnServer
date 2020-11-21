@@ -21,5 +21,6 @@ namespace ApplicationCore.Interfaces.TestService
         Task<List<Test>> GetAllTestsPaging(int pageIndex);
         Task<int> CountTotalTest();
         Task<Test> UpdateAsync(Test entity);
+        Task<Test> DeleteAsync(Test entity);
     }
 }

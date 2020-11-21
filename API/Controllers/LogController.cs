@@ -66,7 +66,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
             return SuccessResult(newLog, "Created Log successfully.");
         }
@@ -83,7 +83,7 @@ namespace WebAPI.Controllers
             var log = await _service.LogService.GetByIdAsync(id);
             if (log == null)
             {
-                return ErrorResult($"Can not found Log with Id: {id}");
+                return Unauthorized($"Can not found Log with Id: {id}");
             }
             var logRes = new LogModel
             {

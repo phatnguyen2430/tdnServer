@@ -20,5 +20,6 @@ namespace ApplicationCore.Interfaces.EssayExerciseService
         Task<EssayExercise> AddAsync(EssayExercise entity);
         Task<List<EssayExercise>> GetByTestIdAsync(int testId);
         Task<EssayExercise> UpdateAsync(EssayExercise entity);
+        Task<EssayExercise> DeleteAsync(EssayExercise entity);
     }
 }

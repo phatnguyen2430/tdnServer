@@ -20,6 +20,7 @@ namespace ApplicationCore.Interfaces.MultipleChoicesExerciseService
         Task<MultipleChoicesExercise> AddAsync(MultipleChoicesExercise entity);
         Task<List<MultipleChoicesExercise>> GetByTestIdAsync(int testId);
         Task<MultipleChoicesExercise> UpdateAsync(MultipleChoicesExercise multipleChoicesExercise);
+        Task<MultipleChoicesExercise> DeleteAsync(MultipleChoicesExercise entity);
     }
 }
 

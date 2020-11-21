@@ -105,5 +105,12 @@ namespace Infrastructure.Services
             await _unitOfWork.SaveChangesAsync();
             return entity;
         }
+
+        public async Task<Test> DeleteAsync(Test entity)
+        {
+            await _unitOfWork.TestRepository.DeleteAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
+            return entity;
+        }
     }
 }

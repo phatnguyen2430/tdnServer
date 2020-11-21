@@ -7,7 +7,6 @@ namespace WebAPI.Models.Answer
 {
     public class AnswerEditorModel
     {
-        public int EssayAnswerId { get; set; }
         public string ResultFixed { get; set; }
     }
 }

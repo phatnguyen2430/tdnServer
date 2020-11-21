@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -95,7 +95,7 @@ namespace WebAPI.Controllers
                 var notification = await _service.NotificationService.GetByIdAsync(id);
                 if (notification == null)
                 {
-                    return ErrorResult($"Can not found Notification with Id: {id}");
+                    return Unauthorized($"Can not found Notification with Id: {id}");
                 }
                 var notificationRes = new NotificationResponseModel()
                 {
@@ -111,7 +111,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());                
+                return Unauthorized(e.ToString());                
             }
         }
 
@@ -129,7 +129,7 @@ namespace WebAPI.Controllers
                 var notifications = await _service.NotificationService.GetByUserIdAsync(userId);
                 if (notifications == null)
                 {
-                    return ErrorResult($"Can not found Notification with Id: {userId}");
+                    return Unauthorized($"Can not found Notification with Id: {userId}");
                 }
                 var notificationsRes = new List<NotificationResponseModel>();
                 foreach (var notification in notifications)
@@ -151,7 +151,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -211,7 +211,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 

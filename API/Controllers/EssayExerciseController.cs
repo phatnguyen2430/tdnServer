@@ -60,19 +60,23 @@ namespace WebAPI.Controllers
                 {
                     ValidModel();
                 }
+                //delete base -> ','
+                model.Image = model.Image.Split(',')[1];
+                byte[] imageBytes = Convert.FromBase64String(model.Image);
                 newEssayExercise = new EssayExercise()
                 {
                     Result = model.Result,
                     TestId = model.TestId,
-                    Title = model.Title
+                    Title = model.Title,
+                    Image = imageBytes
                 };
                 await _service.EssayExerciseService.AddAsync(newEssayExercise);
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
-            return SuccessResult(newEssayExercise, "Created Essay Exercise successfully.");
+            return SuccessResult("Created Essay Exercise successfully.");
         }
 
         //get Essay Exercise by id
@@ -89,12 +93,14 @@ namespace WebAPI.Controllers
                 var essayExercise = await _service.EssayExerciseService.GetByIdAsync(id);
                 if (essayExercise == null)
                 {
-                    return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                    return Unauthorized($"Can not found Essay Exercise with Id: {id}");
                 }
+                string base64String = Convert.ToBase64String(essayExercise.Image, 0,
+                essayExercise.Image.Length);
                 var essayExerciseRes = new EssayExerciseResponseModel()
                 {
                     Id = essayExercise.Id,
-                    Image = essayExercise.Image,
+                    Image = base64String,
                     Result = essayExercise.Result,
                     TestId = essayExercise.TestId,
                     Title = essayExercise.Title
@@ -103,7 +109,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -127,11 +133,12 @@ namespace WebAPI.Controllers
                 var essayExercise = await _service.EssayExerciseService.GetByIdAsync(id);
                 if (essayExercise == null)
                 {
-                    return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                    return Unauthorized($"Can not found Essay Exercise with Id: {id}");
                 }
-
+                essayExerciseRequestModel.Image = essayExerciseRequestModel.Image.Split(',')[1];
+                byte[] imageBytes = Convert.FromBase64String(essayExerciseRequestModel.Image);
                 //map requestModel to entity -> update
-                essayExercise.Image = essayExerciseRequestModel.Image;
+                essayExercise.Image = imageBytes;
                 essayExercise.Title = essayExerciseRequestModel.Title;
                 essayExercise.Result = essayExerciseRequestModel.Result;
 
@@ -142,13 +149,13 @@ namespace WebAPI.Controllers
                 //check to return
                 if (essayExercise == null)
                 {
-                    return ErrorResult($"Can not found Essay Exercise with Id: {id}");
+                    return Unauthorized($"Can not found Essay Exercise with Id: {id}");
                 }
 
                 var essayExerciseRes = new EssayExerciseResponseModel()
                 {
                     Id = essayExercise.Id,
-                    Image = essayExercise.Image,
+                    Image = essayExerciseRequestModel.Image,
                     Result = essayExercise.Result,
                     TestId = essayExercise.TestId,
                     Title = essayExercise.Title
@@ -157,11 +164,36 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteById([FromRoute] int id)
+        {
+            try
+            {
+                //get entity by id
+                var entity = await _service.EssayExerciseService.GetByIdAsync(id);
+                if (entity == null)
+                {
+                    return Unauthorized($"Can not found essay exercise with Id: {id}");
+                }
 
+                await _service.EssayExerciseService.DeleteAsync(entity);
+
+                return SuccessResult("Delete essay exercise successfully.");
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.ToString());
+            }
+        }
         #endregion
 
         #region get all

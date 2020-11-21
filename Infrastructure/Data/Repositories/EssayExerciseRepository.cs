@@ -30,5 +30,7 @@ namespace Infrastructure.Data.Repositories
             var essayExerciseList = await DbSet.Where(x => x.TestId == testId).ToListAsync();
             return essayExerciseList;
         }
+
+
     }
 }

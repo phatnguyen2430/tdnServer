@@ -65,14 +65,14 @@ namespace WebAPI.Controllers
                 var existingMultipleChoicesAnswer = await _service.MultipleChoicesAnswerService.CheckExistingBasedOnAnswerIdAndExerciseId(model.AnswerId, model.MultipleChoicesExerciseId);
                 if (existingMultipleChoicesAnswer == true)
                 {
-                    return ErrorResult("You has already done this question.");
+                    return Unauthorized("You has already done this question.");
                 }
 
                 //check if multiple choices answer is existing
                 var multipleChoicesExercise = await _service.MultipleChoicesExerciseService.GetByIdAsync(model.MultipleChoicesExerciseId);
                 if (multipleChoicesExercise == null)
                 {
-                    return ErrorResult($"The Exercise with Id :{model.MultipleChoicesExerciseId} does not exist.");
+                    return Unauthorized($"The Exercise with Id :{model.MultipleChoicesExerciseId} does not exist.");
                 }
 
                 newMultipleChoicesAnswer = new MultipleChoicesAnswer()
@@ -85,7 +85,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
             return SuccessResult(newMultipleChoicesAnswer, "Created Multiple Choices Answer successfully.");
         }
@@ -102,7 +102,7 @@ namespace WebAPI.Controllers
             var multipleChoicesAnswer = await _service.MultipleChoicesAnswerService.GetByIdAsync(id);
             if (multipleChoicesAnswer == null)
             {
-                return ErrorResult($"Can not found Multiple Choices Answer with Id: {id}");
+                return Unauthorized($"Can not found Multiple Choices Answer with Id: {id}");
             }
             var multipleChoicesAnswerRes = new MultipleChoicesAnswerResponseModel
             {

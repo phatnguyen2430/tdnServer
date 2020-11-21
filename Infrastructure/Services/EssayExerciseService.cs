@@ -92,6 +92,12 @@ namespace Infrastructure.Services
             await _unitOfWork.SaveChangesAsync();
             return entity;
         }
+        public async Task<EssayExercise> DeleteAsync(EssayExercise entity)
+        {
+            await _unitOfWork.EssayExerciseRepository.DeleteAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
+            return entity;
+        }
 
     }
 }

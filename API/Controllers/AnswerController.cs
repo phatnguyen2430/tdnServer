@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
                 var existingAnswer = await _service.AnswerService.CheckExistingBasedOnTestId(model.UserId,model.TestId);
                 if (existingAnswer == true)
                 {
-                    return ErrorResult("You has already done this test.");
+                    return Unauthorized("You has already done this test.");
                 }
 
                 //else -> add answer
@@ -96,7 +96,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -106,7 +106,7 @@ namespace WebAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpPost("create/contains")]
+        [HttpPost("contains/create")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -124,7 +124,7 @@ namespace WebAPI.Controllers
                 var existingAnswer = await _service.AnswerService.CheckExistingBasedOnTestId(model.UserId, model.TestId);
                 if (existingAnswer == true)
                 {
-                    return ErrorResult("You has already done this test.");
+                    return Unauthorized("You has already done this test.");
                 }
 
                 int score = 0;
@@ -246,35 +246,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
-            }
-        }
-
-        //fix the answer of student 
-        [HttpPut("fix")]
-        [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> FixEssayAnswer([FromRoute] AnswerEditorModel model)
-        {
-            try
-            {
-                //get Essay Answer by Id
-                var essayAnswer = await _service.EssayAnswerService.GetByIdAsync(model.EssayAnswerId);
-
-                //add fixed result to answer
-                essayAnswer.ResultFixed = model.ResultFixed;
-
-                //update answer 
-                await _service.EssayAnswerService.UpdateAsync(essayAnswer);
-
-                return SuccessResult(model, "Update Essay Answer successfully.");
-            }
-            catch (Exception e)
-            {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.Message);
             }
         }
 
@@ -314,7 +286,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -354,7 +326,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -372,7 +344,7 @@ namespace WebAPI.Controllers
                 var answer = await _service.AnswerService.GetByIdAsync(id);
                 if (answer == null)
                 {
-                    return ErrorResult($"Can not found Answer with Id: {id}");
+                    return Unauthorized($"Can not found Answer with Id: {id}");
                 }
                 var answerRes = new AnswerResponseModel
                 {
@@ -386,13 +358,13 @@ namespace WebAPI.Controllers
             catch (Exception e)
             {
 
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
 
         //get answer by Id Contains
-        [HttpGet("{id}/contains")]
+        [HttpGet("contains/{id}")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -405,7 +377,7 @@ namespace WebAPI.Controllers
                 var answer = await _service.AnswerService.GetByIdAsync(id);
                 if (answer == null)
                 {
-                    return ErrorResult($"Can not found Answer with Id: {id}");
+                    return Unauthorized($"Can not found Answer with Id: {id}");
                 }
                 var answerRes = new AnswerContainerResponseModel
                 {
@@ -454,9 +426,105 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
+
+        //fix the answer of student 
+        [HttpPut("fix/{answerId}/{essayAnswerId}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> FixEssayAnswer([FromBody] AnswerEditorModel model,[FromRoute]int essayAnswerId,
+            [FromRoute] int answerId)
+        {
+            try
+            {
+                //get Essay Answer by Id
+                var essayAnswer = await _service.EssayAnswerService.GetByIdAsync(essayAnswerId);
+
+                //add fixed result to answer
+                essayAnswer.ResultFixed = model.ResultFixed;
+
+                //update answer 
+                await _service.EssayAnswerService.UpdateAsync(essayAnswer);
+                //create essay answer result
+                var response = new EssayAnswerResponseModel()
+                {
+                    AnswerId = essayAnswer.AnswerId,
+                    EssayExerciseId = essayAnswer.EssayExerciseId,
+                    Id = essayAnswer.Id,
+                    IsBingo = essayAnswer.IsBingo,
+                    Result = essayAnswer.Result
+                };
+
+                return SuccessResult(response, "Fix Essay Answer successfully.");
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.ToString());
+            }
+        }
+
+
+        //get answer where unFixed
+        [AllowAnonymous]
+        [HttpPost("/get/all/unfixed")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllUnfixedPaging([FromRoute] int pageIndex)
+        {
+            try
+            {
+                //get all ids
+                var ids = await _service.EssayAnswerService.GetUnfixedTestIdsAsync(pageIndex);
+                if (ids == null || ids.Count()==0)
+                {
+                    return SuccessResult("There's no Answer to fix !");
+                }
+                //get all unfixed answer on server
+
+                var answers = new List<Answer>();
+                foreach (var id in ids)
+                {
+                    var answer = await _service.AnswerService.GetByIdAsync(id);
+                    answers.Add(answer);
+                }
+                if (answers == null || answers.Count() == 0)
+                {
+                    return SuccessResult("There's no Answer to fix !");
+                }
+
+                //mapp -> response to client 
+                var answersRes = new List<AnswerUnfixedResponseModel>();
+                foreach (var answer in answers)
+                {
+                    var user = await _service.IdentityService.GetByIdAsync(answer.UserId);
+                    var answerRes = new AnswerUnfixedResponseModel()
+                    {
+                        Id = answer.Id,
+                        Score = answer.Score,
+                        TestId = answer.TestId,
+                        UserId = answer.UserId,
+                        DateCreate = answer.CreatedOnUtc,
+                        UserName = user.UserName,
+                        Email = user.Email
+                    };
+                    answersRes.Add(answerRes);
+                }
+                return SuccessResult(answersRes,"Get Answers to fix complete !");
+
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
+            }
+        }
+
         #endregion
     }
 }

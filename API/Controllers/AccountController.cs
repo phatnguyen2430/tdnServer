@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Entities.Identity;
+using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace WebAPI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return ErrorResult(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
+                    return Unauthorized(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
                 }
                 var result = await _service.IdentityService.RegisterAsync(model.Email, model.Password,
                     model.Name,
@@ -47,7 +48,7 @@ namespace WebAPI.Controllers
 
                 if (!result.IsSuccess)
                 {
-                    return ErrorResult(result.ErrorMessages);
+                    return Unauthorized(result.ErrorMessages);
                 }
                 return SuccessResult(new AuthSuccessResponse
                 {
@@ -58,7 +59,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e )
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -76,12 +77,12 @@ namespace WebAPI.Controllers
                 var role = await _service.IdentityService.GetUserRoleByEmail(model.Email);
                 if (role != "admin")
                 {
-                    return ErrorResult("This is " + role + " account not Admin Account");
+                    return Unauthorized("This is " + role + " account not Admin Account");
                 }
 
                 if (!result.IsSuccess)
                 {
-                    return ErrorResult(result.ErrorMessages);
+                    return Unauthorized(result.ErrorMessages);
                 }
                 return SuccessResult(new AuthSuccessResponse
                 {
@@ -92,7 +93,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -112,7 +113,7 @@ namespace WebAPI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return ErrorResult(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
+                    return Unauthorized(ModelState.Values.SelectMany(p => p.Errors.Select(t => t.ErrorMessage).ToList()).ToList());
                 }
                 var result = await _service.IdentityService.RegisterAsync(model.Email, model.Password,
                     model.Name,
@@ -126,7 +127,7 @@ namespace WebAPI.Controllers
 
                 if (!result.IsSuccess)
                 {
-                    return ErrorResult(result.ErrorMessages);
+                    return Unauthorized(result.ErrorMessages);
                 }
                 return SuccessResult(new AuthSuccessResponse
                 {
@@ -137,7 +138,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -160,12 +161,12 @@ namespace WebAPI.Controllers
                 var role = await _service.IdentityService.GetUserRoleByEmail(model.Email);
                 if (role != "student")
                 {
-                    return ErrorResult("This is " + role + " account not student account");
+                    return Unauthorized("This is " + role + " account not student account");
                 }
 
                 if (!result.IsSuccess)
                 {
-                    return ErrorResult(result.ErrorMessages);
+                    return Unauthorized(result.ErrorMessages);
                 }
                 return SuccessResult(new AuthSuccessResponse
                 {
@@ -176,7 +177,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -189,7 +190,7 @@ namespace WebAPI.Controllers
                 var result = await _service.IdentityService.RefreshTokenAsync(model.Token, model.RefreshToken);
                 if (!result.IsSuccess)
                 {
-                    return ErrorResult(result.ErrorMessages);
+                    return Unauthorized(result.ErrorMessages);
                 }
                 return SuccessResult(new AuthSuccessResponse
                 {
@@ -199,7 +200,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
@@ -250,7 +251,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -283,7 +284,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -315,7 +316,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -339,12 +340,12 @@ namespace WebAPI.Controllers
                 }
                 else
                 {
-                    return ErrorResult("Failed to delete User has Id =" + UserId.ToString() + " .");
+                    return Unauthorized("Failed to delete User has Id =" + UserId.ToString() + " .");
                 }
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
         }
 
@@ -382,7 +383,43 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
+            }
+        }
+
+
+        //active -> list ids
+        //update user detail
+        [AllowAnonymous]
+        [HttpPut("update/active")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateActiveUser([FromBody] List<int> ids)
+        {
+            try
+            {
+                var users = new List<User>();
+                //get all user from ids list 
+                foreach (var id in ids)
+                {
+                    var user = await _service.IdentityService.GetByIdAsync(id);
+                    user.IsActive = true;
+                    users.Add(user);
+                }
+
+                //change data of user
+                foreach (var user in users)
+                {
+                    await _service.IdentityService.UpdateUserAsync(user);
+                }
+
+                return SuccessResult("Users Activate successfully.");
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
             }
         }
     }

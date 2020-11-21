@@ -60,6 +60,9 @@ namespace WebAPI.Controllers
                 {
                     ValidModel();
                 }
+                //delete base -> ','
+                model.Image = model.Image.Split(',')[1];
+                byte[] imageBytes = Convert.FromBase64String(model.Image);
                 newMultipleChoicesExercise = new MultipleChoicesExercise()
                 {
                     TestId = model.TestId,
@@ -67,15 +70,16 @@ namespace WebAPI.Controllers
                     RightResult = model.RightResult,
                     FalseResult1 = model.FalseResult1,
                     FalseResult2 = model.FalseResult2,
-                    FalseResult3 = model.FalseResult3
+                    FalseResult3 = model.FalseResult3,
+                    Image = imageBytes
                 };
                 await _service.MultipleChoicesExerciseService.AddAsync(newMultipleChoicesExercise);
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
-            return SuccessResult(model, "Created MultipleChoicesExercise successfully.");
+            return SuccessResult("Created MultipleChoicesExercise successfully.");
         }
 
         //get MultipleChoicesExercise by id
@@ -90,8 +94,11 @@ namespace WebAPI.Controllers
             var multipleChoicesExercise = await _service.MultipleChoicesExerciseService.GetByIdAsync(id);
             if (multipleChoicesExercise == null)
             {
-                return ErrorResult($"Can not found Multiple Choices Exercise with Id: {id}");
+                return Unauthorized($"Can not found Multiple Choices Exercise with Id: {id}");
             }
+            //convert Phat to Ngoc Anh 64
+            string base64String = Convert.ToBase64String(multipleChoicesExercise.Image, 0,
+                multipleChoicesExercise.Image.Length);
             var multipleChoicesExerciseRes = new MultipleChoicesExerciseResponseModel
             {
                 Id = multipleChoicesExercise.Id,
@@ -100,7 +107,8 @@ namespace WebAPI.Controllers
                 RightResult = multipleChoicesExercise.RightResult,
                 FalseResult1 = multipleChoicesExercise.FalseResult1,
                 FalseResult2 = multipleChoicesExercise.FalseResult2,
-                FalseResult3 = multipleChoicesExercise.FalseResult3
+                FalseResult3 = multipleChoicesExercise.FalseResult3,
+                Image = base64String
             };
             return SuccessResult(multipleChoicesExerciseRes, "Get Multiple Choices Exercise successfully.");
         }
@@ -126,11 +134,13 @@ namespace WebAPI.Controllers
                 var multipleChoicesExercise = await _service.MultipleChoicesExerciseService.GetByIdAsync(id);
                 if (multipleChoicesExercise == null)
                 {
-                    return ErrorResult($"Can not found Multiple Choices Exercise with Id: {id}");
+                    return Unauthorized($"Can not found Multiple Choices Exercise with Id: {id}");
                 }
-
+                //delete base -> ','
+                multipleChoicesExerciseRequestModel.Image = multipleChoicesExerciseRequestModel.Image.Split(',')[1];
+                byte[] imageBytes = Convert.FromBase64String(multipleChoicesExerciseRequestModel.Image);
                 //map requestModel to entity -> update
-                multipleChoicesExercise.Image = multipleChoicesExerciseRequestModel.Image;
+                multipleChoicesExercise.Image = imageBytes;
                 multipleChoicesExercise.Title = multipleChoicesExerciseRequestModel.Title;
                 multipleChoicesExercise.RightResult = multipleChoicesExerciseRequestModel.RightResult;
                 multipleChoicesExercise.FalseResult1 = multipleChoicesExerciseRequestModel.FalseResult1;
@@ -143,8 +153,12 @@ namespace WebAPI.Controllers
                 //check to return
                 if (multipleChoicesExercise == null)
                 {
-                    return ErrorResult($"Can not found Multiple Choices Exercise with Id: {id}");
+                    return Unauthorized($"Can not found Multiple Choices Exercise with Id: {id}");
                 }
+
+                //convert Phat to Ngoc Anh 64
+                string base64String = Convert.ToBase64String(multipleChoicesExercise.Image, 0,
+                    multipleChoicesExercise.Image.Length);
 
                 var multipleChoicesExerciseRes = new MultipleChoicesExerciseResponseModel
                 {
@@ -154,16 +168,45 @@ namespace WebAPI.Controllers
                     RightResult = multipleChoicesExercise.RightResult,
                     FalseResult1 = multipleChoicesExercise.FalseResult1,
                     FalseResult2 = multipleChoicesExercise.FalseResult2,
-                    FalseResult3 = multipleChoicesExercise.FalseResult3
+                    FalseResult3 = multipleChoicesExercise.FalseResult3,
+                    Image = base64String
                 };
                 return SuccessResult(multipleChoicesExerciseRes, "Update Choices Exercise successfully.");
             }
             catch (Exception e)
             {
-                return ErrorResult(e.ToString());
+                return Unauthorized(e.ToString());
             }
         }
 
+
+
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteById([FromRoute] int id)
+        {
+            try
+            {
+                //get entity by id
+                var entity = await _service.MultipleChoicesExerciseService.GetByIdAsync(id);
+                if (entity == null)
+                {
+                    return Unauthorized($"Can not found multiple choices exercise with Id: {id}");
+                }
+
+                await _service.MultipleChoicesExerciseService.DeleteAsync(entity);
+
+                return SuccessResult("Delete multiple choices exercise successfully.");
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.ToString());
+            }
+        }
         #endregion
     }
 }

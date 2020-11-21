@@ -17,5 +17,6 @@ namespace ApplicationCore.Entities.Identity
         public string Address { get; set; }
         public virtual List<Answer> Answers { get; set; }
         public virtual List<Notification> Notifications { get; set; }
+        public bool IsActive { get; set; }
     }
 }

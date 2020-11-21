@@ -92,7 +92,12 @@ namespace Infrastructure.Services
             await _unitOfWork.SaveChangesAsync();
             return multipleChoicesExercise;
         }
-
+        public async Task<MultipleChoicesExercise> DeleteAsync(MultipleChoicesExercise entity)
+        {
+            await _unitOfWork.MultipleChoicesExerciseRepository.DeleteAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
+            return entity;
+        }
 
     }
 }

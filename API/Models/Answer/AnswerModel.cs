@@ -14,6 +14,17 @@ namespace WebAPI.Models.Answer
         public double Score { get; set; }
         public int UserId { get; set; }
     }
+
+    public class AnswerUnfixedResponseModel
+    {
+        public int Id { get; set; }
+        public int TestId { get; set; }
+        public double Score { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public DateTime DateCreate { get; set; }
+        public string Email { get; set; }
+    }
     public class AnswerRequestModel
     {
         public int TestId { get; set; }

@@ -4,14 +4,16 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(NoisContext))]
-    partial class NoisContextModelSnapshot : ModelSnapshot
+    [Migration("20201121060059_InitDb21112020")]
+    partial class InitDb21112020
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,6 +30,9 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<DateTime>("CreatedOnUtc")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsFixed")
+                        .HasColumnType("bit");
 
                     b.Property<double>("Score")
                         .HasColumnType("float");
@@ -232,9 +237,6 @@ namespace Infrastructure.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")

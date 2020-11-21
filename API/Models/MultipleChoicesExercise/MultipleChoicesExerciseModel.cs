@@ -14,7 +14,7 @@ namespace WebAPI.Models.MultipleChoicesExercise
         public string FalseResult1 { get; set; }
         public string FalseResult2 { get; set; }
         public string FalseResult3 { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
     }
     public class MultipleChoicesExerciseRequestModel
     {
@@ -24,6 +24,6 @@ namespace WebAPI.Models.MultipleChoicesExercise
         public string FalseResult1 { get; set; }
         public string FalseResult2 { get; set; }
         public string FalseResult3 { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
     }
 }

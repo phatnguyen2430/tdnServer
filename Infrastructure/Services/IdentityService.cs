@@ -63,7 +63,8 @@ namespace Infrastructure.Services
                 Name = name,
                 Address = address,
                 Age = age,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                IsActive = false
             };
             var result = await _userManager.CreateAsync(newUser, password);
 

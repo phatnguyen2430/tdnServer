@@ -44,5 +44,28 @@ namespace Infrastructure.Data.Repositories
         {
             return await DbSet.Where(x => x.AnswerId == answerId).ToListAsync();
         }
+        public async Task<List<int>> GetUnfixedTestIdsAsync(int pageIndex)
+        {
+            var listEssayExercises = await DbSet.Where(x => x.Result == null).ToListAsync();
+            var listIds = new List<int>();
+            foreach (var essayExercise in listEssayExercises)
+            {
+                listIds.Add(essayExercise.AnswerId);
+            }
+
+            //make group by
+            var resList = listIds.GroupBy(x => x).ToList();
+
+            //add to list
+            var testIds = new List<int>();
+            foreach (var item in resList)
+            {
+                testIds.Add(item.FirstOrDefault());
+            }
+
+            //add paging 
+            var result = testIds.OrderByDescending(x => x).Skip((pageIndex - 1) * 25).Take(25).ToList();
+            return result;
+        }
     }
 }

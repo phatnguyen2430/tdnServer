@@ -65,14 +65,14 @@ namespace WebAPI.Controllers
                 var existingEssayAnswer = await _service.EssayAnswerService.CheckExistingBasedOnAnswerIdAndExerciseId(model.AnswerId, model.EssayExerciseId);
                 if (existingEssayAnswer == true)
                 {
-                    return ErrorResult("You has already done this question.");
+                    return Unauthorized("You has already done this question.");
                 }
 
                 //check if multiple choices answer is existing
                 var essayExercise = await _service.EssayExerciseService.GetByIdAsync(model.EssayExerciseId);
                 if (essayExercise == null)
                 {
-                    return ErrorResult($"The Exercise with Id :{model.EssayExerciseId} does not exist.");
+                    return Unauthorized($"The Exercise with Id :{model.EssayExerciseId} does not exist.");
                 }
 
                 essayAnswer = new EssayAnswer()
@@ -85,7 +85,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception e)
             {
-                return ErrorResult(e.Message);
+                return Unauthorized(e.Message);
             }
             return SuccessResult(essayAnswer, "Created Essay Answer successfully.");
         }
@@ -102,7 +102,7 @@ namespace WebAPI.Controllers
             var essayAnswer = await _service.EssayAnswerService.GetByIdAsync(id);
             if (essayAnswer == null)
             {
-                return ErrorResult($"Can not found Essay Answer with Id: {id}");
+                return Unauthorized($"Can not found Essay Answer with Id: {id}");
             }
             var essayAnswerRes = new EssayAnswerResponseModel
             {
